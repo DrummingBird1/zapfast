@@ -79,6 +79,11 @@ impl Locale {
         }
     }
 
+    /// Whether the interface language reads right to left.
+    pub fn is_rtl(self) -> bool {
+        matches!(self, Self::Hebrew)
+    }
+
     /// Maps a system language tag (BCP 47 or POSIX) to a supported locale by
     /// its language subtag, so `pt-PT` and `pt_BR` both resolve to Portuguese.
     /// Chinese is the exception: its script decides, so a reader who asked for
@@ -270,6 +275,8 @@ mod tests {
         assert_eq!(Locale::from_system("id"), Some(Locale::Indonesian));
         assert_eq!(Locale::from_system("he-IL"), Some(Locale::Hebrew));
         assert_eq!(Locale::from_system("iw"), Some(Locale::Hebrew));
+        assert!(Locale::Hebrew.is_rtl());
+        assert!(Locale::ALL.iter().filter(|locale| locale.is_rtl()).count() == 1);
         assert_eq!(Locale::from_system("en-US"), Some(Locale::English));
         assert_eq!(Locale::from_system("ja-JP"), None);
         assert_eq!(Locale::default(), Locale::English);

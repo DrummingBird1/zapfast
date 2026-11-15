@@ -9,6 +9,7 @@ mod chat_export;
 pub mod chats;
 pub mod conversation;
 pub mod dialogs;
+pub mod direction;
 pub(crate) mod focus;
 mod glass;
 pub mod image_editor;
